@@ -78,7 +78,7 @@
               <span class="tag priority-{{ todo.priority.toLowerCase() }}">
                 优先级: {{ getPriorityLabel(todo.priority) }}
               </span>
-              <span class="tag category-{{ todo.category?.toLowerCase() }}" *ngIf="todo.category">
+              <span class="tag category-{{ todo.category.toLowerCase() }}" *ngIf="todo.category">
                 {{ getCategoryLabel(todo.category) }}
               </span>
             </div>
@@ -130,7 +130,7 @@
               <span class="tag priority-{{ todo.priority.toLowerCase() }}">
                 优先级: {{ getPriorityLabel(todo.priority) }}
               </span>
-              <span class="tag category-{{ todo.category?.toLowerCase() }}" *ngIf="todo.category">
+              <span class="tag category-{{ todo.category.toLowerCase() }}" *ngIf="todo.category">
                 {{ getCategoryLabel(todo.category) }}
               </span>
             </div>
