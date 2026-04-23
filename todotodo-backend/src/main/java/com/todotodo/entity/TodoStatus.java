@@ -1,0 +1,7 @@
+package com.todotodo.entity;
+
+public enum TodoStatus {
+    PENDING,
+    IN_PROGRESS,
+    COMPLETED
+}
