@@ -13,50 +13,49 @@ Thumbs.db
 # 2. 后端配置 (Java/Maven/Spring Boot)
 # ==========================================
 # 编译后的类文件
-backend/**/*.class
-backend/**/target/
-backend/**/bin/
+todotodo-backend/**/*.class
+todotodo-backend/**/target/
+todotodo-backend/**/bin/
 
 # 日志文件
-backend/**/logs/
-backend/**/*.log
+todotodo-backend/**/logs/
+todotodo-backend/**/*.log
 
 # Maven 属性文件
-backend/.mvn/wrapper/maven-wrapper.jar
-backend/release.properties
-backend/pom.xml.tag
-backend/pom.xml.releaseBackup
-backend/pom.xml.backup
-backend/pom.xml.versionsBackup
+todotodo-backend/.mvn/wrapper/maven-wrapper.jar
+todotodo-backend/release.properties
+todotodo-backend/pom.xml.tag
+todotodo-backend/pom.xml.releaseBackup
+todotodo-backend/pom.xml.backup
+todotodo-backend/pom.xml.versionsBackup
 
 # Gradle 缓存
-backend/.gradle/
-backend/build/
+todotodo-backend/.gradle/
+todotodo-backend/build/
 
 # ==========================================
 # 3. 前端配置 (Node/Angular)
 # ==========================================
 # 依赖
-frontend/node_modules/
-frontend/dist/
-frontend/.angular/
-
+todotodo-frontend/node_modules/
+todotodo-frontend/todotodo-frontend/dist/
+todotodo-frontend/.angular/
+node_modules/
 # 日志与缓存
-frontend/*.log
-frontend/npm-debug.log*
-frontend/yarn-debug.log*
-frontend/yarn-error.log*
-frontend/.eslintcache
-frontend/.cache/
+todotodo-frontend/npm-debug.log*
+todotodo-frontend/yarn-debug.log*
+todotodo-frontend/yarn-error.log*
+todotodo-frontend/.eslintcache
+todotodo-frontend/.cache/
 
 # 单元测试与覆盖率
-frontend/coverage/
-frontend/.nyc_output/
+todotodo-frontend/coverage/
+todotodo-frontend/.nyc_output/
 
 # 环境变量 (包含敏感信息)
-frontend/.env
-frontend/.env.*
-!frontend/.env.example
+todotodo-frontend/.env
+todotodo-frontend/.env.*
+!todotodo-frontend/.env.example
 
 # ==========================================
 # 4. 其他 (构建产物)

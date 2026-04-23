@@ -35,4 +35,6 @@ public interface TodoRepository extends JpaRepository<Todo, Long> {
     List<Todo> findByStatusOrderByPriorityAscDueDateAsc(TodoStatus status);
 
     List<Todo> findByStatusOrderByPriorityDescDueDateAsc(TodoStatus status);
+
+    List<Todo> findByStatusOrderByUpdatedAtDesc(TodoStatus status);
 }

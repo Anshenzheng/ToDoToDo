@@ -22,7 +22,7 @@ export interface Todo {
   description: string;
   status: TodoStatus;
   priority: TodoPriority;
-  category: TodoCategory;
+  category: TodoCategory | null;
   dueDate: Date | null;
   reminderTime: Date | null;
   reminderEnabled: boolean;
@@ -35,7 +35,7 @@ export interface TodoFormData {
   description: string;
   status: TodoStatus;
   priority: TodoPriority;
-  category: TodoCategory;
+  category: TodoCategory | null;
   dueDate: string;
   reminderTime: string;
   reminderEnabled: boolean;
