@@ -1,0 +1,96 @@
+<div class="todo-form-container">
+  <div class="form-header">
+    <h2>{{ isEditMode ? '编辑待办' : '新建待办' }}</h2>
+  </div>
+
+  <form [formGroup]="todoForm" (ngSubmit)="onSubmit()" class="todo-form">
+    <div class="form-group">
+      <label class="form-label required">标题</label>
+      <input 
+        type="text" 
+        class="form-input" 
+        formControlName="title"
+        placeholder="请输入待办事项标题"
+      >
+      <div *ngIf="todoForm.get('title')?.invalid && todoForm.get('title')?.touched" class="error-message">
+        标题是必填项
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">描述</label>
+      <textarea 
+        class="form-textarea" 
+        formControlName="description"
+        placeholder="请输入待办事项描述（可选）"
+        rows="3"
+      ></textarea>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">状态</label>
+        <select class="form-select" formControlName="status">
+          <option *ngFor="let status of statusOptions" [value]="status">
+            {{ getStatusLabel(status) }}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">优先级</label>
+        <select class="form-select" formControlName="priority">
+          <option *ngFor="let priority of priorityOptions" [value]="priority">
+            {{ getPriorityLabel(priority) }}
+          </option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">分类</label>
+      <select class="form-select" formControlName="category">
+        <option value="">-- 请选择分类（可选） --</option>
+        <option *ngFor="let category of categoryOptions" [value]="category">
+          {{ getCategoryLabel(category) }}
+        </option>
+      </select>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">截止日期</label>
+        <input 
+          type="datetime-local" 
+          class="form-input" 
+          formControlName="dueDate"
+        >
+      </div>
+    </div>
+
+    <div class="form-group reminder-section">
+      <label class="checkbox-label">
+        <input type="checkbox" formControlName="reminderEnabled">
+        <span>设置提醒</span>
+      </label>
+    </div>
+
+    <div class="form-group" *ngIf="todoForm.get('reminderEnabled')?.value">
+      <label class="form-label">提醒时间</label>
+      <input 
+        type="datetime-local" 
+        class="form-input" 
+        formControlName="reminderTime"
+      >
+    </div>
+
+    <div class="form-actions">
+      <button type="button" class="btn btn-cancel" (click)="onCancel()">
+        取消
+      </button>
+      <button type="submit" class="btn btn-primary" [disabled]="todoForm.invalid">
+        {{ isEditMode ? '保存修改' : '创建待办' }}
+      </button>
+    </div>
+  </form>
+</div>

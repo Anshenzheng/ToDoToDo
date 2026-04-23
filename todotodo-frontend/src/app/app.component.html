@@ -1,0 +1,158 @@
+<div class="app-container">
+  <header class="header">
+    <div class="header-content">
+      <h1>{{ title }}</h1>
+      <p class="subtitle">高效管理您的待办事项</p>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <div class="toolbar">
+      <div class="search-section">
+        <input 
+          type="text" 
+          class="search-input" 
+          placeholder="搜索待办事项..."
+          [(ngModel)]="searchKeyword"
+          (input)="onSearch()"
+          (keyup.enter)="onSearch()"
+        >
+        <button *ngIf="searchKeyword" class="clear-btn" (click)="clearSearch()">
+          &times;
+        </button>
+      </div>
+      <button class="add-btn" (click)="openAddModal()">
+        <span class="plus-icon">+</span> 新建待办
+      </button>
+    </div>
+
+    <div class="tabs">
+      <button 
+        class="tab-btn" 
+        [class.active]="activeTab === 'pending'"
+        (click)="switchTab('pending')"
+      >
+        待办事项 ({{ pendingTodos.length }})
+      </button>
+      <button 
+        class="tab-btn" 
+        [class.active]="activeTab === 'completed'"
+        (click)="switchTab('completed')"
+      >
+        已完成 ({{ completedTodos.length }})
+      </button>
+    </div>
+
+    <div class="todo-section" *ngIf="activeTab === 'pending'">
+      <div class="todo-list">
+        <div *ngIf="pendingTodos.length === 0" class="empty-state">
+          <div class="empty-icon">📋</div>
+          <p>暂无待办事项</p>
+          <button class="empty-add-btn" (click)="openAddModal()">创建第一个待办</button>
+        </div>
+
+        <div 
+          class="todo-item" 
+          *ngFor="let todo of pendingTodos"
+          [class.overdue]="isOverdue(todo)"
+        >
+          <div class="todo-header">
+            <input 
+              type="checkbox" 
+              class="todo-checkbox"
+              (change)="toggleComplete(todo)"
+            >
+            <span class="todo-title">{{ todo.title }}</span>
+            <div class="todo-actions">
+              <button class="action-btn edit-btn" (click)="openEditModal(todo)">编辑</button>
+              <button class="action-btn delete-btn" (click)="deleteTodo(todo)">删除</button>
+            </div>
+          </div>
+          
+          <div class="todo-body" *ngIf="todo.description">
+            <p class="todo-description">{{ todo.description }}</p>
+          </div>
+
+          <div class="todo-footer">
+            <div class="todo-tags">
+              <span class="tag priority-{{ todo.priority.toLowerCase() }}">
+                优先级: {{ getPriorityLabel(todo.priority) }}
+              </span>
+              <span class="tag category-{{ todo.category?.toLowerCase() }}" *ngIf="todo.category">
+                {{ getCategoryLabel(todo.category) }}
+              </span>
+            </div>
+            <div class="todo-dates">
+              <span class="date-item" *ngIf="todo.dueDate">
+                <span class="date-label">截止:</span>
+                <span class="date-value">{{ formatDate(todo.dueDate) }}</span>
+              </span>
+              <span class="date-item reminder" *ngIf="todo.reminderEnabled && todo.reminderTime">
+                <span class="date-label">提醒:</span>
+                <span class="date-value">{{ formatDate(todo.reminderTime) }}</span>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="todo-section" *ngIf="activeTab === 'completed'">
+      <div class="todo-list">
+        <div *ngIf="completedTodos.length === 0" class="empty-state">
+          <div class="empty-icon">✅</div>
+          <p>暂无已完成的待办</p>
+        </div>
+
+        <div 
+          class="todo-item completed" 
+          *ngFor="let todo of completedTodos"
+        >
+          <div class="todo-header">
+            <input 
+              type="checkbox" 
+              class="todo-checkbox"
+              [checked]="true"
+              (change)="toggleComplete(todo)"
+            >
+            <span class="todo-title">{{ todo.title }}</span>
+            <div class="todo-actions">
+              <button class="action-btn delete-btn" (click)="deleteTodo(todo)">删除</button>
+            </div>
+          </div>
+          
+          <div class="todo-body" *ngIf="todo.description">
+            <p class="todo-description">{{ todo.description }}</p>
+          </div>
+
+          <div class="todo-footer">
+            <div class="todo-tags">
+              <span class="tag priority-{{ todo.priority.toLowerCase() }}">
+                优先级: {{ getPriorityLabel(todo.priority) }}
+              </span>
+              <span class="tag category-{{ todo.category?.toLowerCase() }}" *ngIf="todo.category">
+                {{ getCategoryLabel(todo.category) }}
+              </span>
+            </div>
+            <div class="todo-dates">
+              <span class="date-item">
+                <span class="date-label">完成于:</span>
+                <span class="date-value">{{ formatDate(todo.updatedAt) }}</span>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div class="modal-overlay" *ngIf="showAddModal" (click)="closeModal()">
+    <div class="modal" (click)="$event.stopPropagation()">
+      <app-todo-form 
+        [todo]="editingTodo"
+        (saved)="onTodoSaved()"
+        (cancelled)="closeModal()"
+      ></app-todo-form>
+    </div>
+  </div>
+</div>
